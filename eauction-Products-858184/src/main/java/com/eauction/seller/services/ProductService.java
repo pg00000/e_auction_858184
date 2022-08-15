@@ -9,6 +9,8 @@ import com.eauction.seller.model.User;
 
 public interface ProductService {
 	
+	Products getProduct(String productId);
+	
 	List<Products> getProducts();
 
 	Products saveProduct(ProductRequest productInfo, User user, String sellerId);

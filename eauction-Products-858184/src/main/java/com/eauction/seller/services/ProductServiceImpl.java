@@ -1,34 +1,26 @@
 package com.eauction.seller.services;
 
 import static java.util.Objects.isNull;
-import static java.util.Objects.nonNull;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Comparator;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.Random;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.eauction.seller.Integrator.UserServiceClient;
 import com.eauction.seller.exception.InvalidRequestException;
 import com.eauction.seller.exception.ProductNotFoundException;
 import com.eauction.seller.model.Bids;
 import com.eauction.seller.model.Category;
 import com.eauction.seller.model.ProductBids;
+import com.eauction.seller.model.ProductBids.ProductBidsBuilder;
 import com.eauction.seller.model.ProductRequest;
 import com.eauction.seller.model.Products;
 import com.eauction.seller.model.User;
 import com.eauction.seller.model.UserAndBids;
-import com.eauction.seller.model.ProductBids.ProductBidsBuilder;
 import com.eauction.seller.repositories.BidsRepository;
 import com.eauction.seller.repositories.ProductRepository;
 
@@ -44,14 +36,16 @@ public class ProductServiceImpl implements ProductService {
 	@Autowired
 	BidsRepository bidsRepository;
 	
-	@Autowired
-	UserServiceClient userClient;
+	@Override
+	public Products getProduct(String productId) {
+		log.info("ProductServiceImpl >> getProduct >>");
+		return productRepository.findByProductId(productId);
+	}
 	
 	@Override
 	public List<Products> getProducts() {
 		log.info("ProductServiceImpl >> getProducts >>");
-		List<Products> productList = productRepository.findAll();
-		return productList;
+		return productRepository.findAll();
 	}
 
 	@Override
@@ -117,11 +111,12 @@ public class ProductServiceImpl implements ProductService {
 		
 		if (!bids.isEmpty()) {
 			bids.forEach(bid -> {
+				User usr = bid.getBuyer();
 				UserAndBids userAndBidsObj = UserAndBids.builder()
 						.bidAmount(Double.valueOf(bid.getBidAmount()))
-						.userName(bid.getFirstName() + bid.getLastName())
-						.userEmail(bid.getEmail())
-						.phone(bid.getPhone())
+						.userName(usr.getFirstName() + usr.getLastName())
+						.userEmail(usr.getEmail())
+						.phone(usr.getPhone())
 						.build();
 				userAndBidsVOList.add(userAndBidsObj);
 			});
