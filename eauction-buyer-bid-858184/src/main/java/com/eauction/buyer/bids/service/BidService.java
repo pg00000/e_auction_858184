@@ -9,6 +9,6 @@ public interface BidService {
 
 	void updateBid(String productId, String buyerEmailId, String newBidAmount);
 
-	String placeBid(BidRequest bidRequest, String buyerEmailId);
+	Bids placeBid(BidRequest bidRequest, String buyerEmailId);
 	
 }

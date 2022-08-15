@@ -25,25 +25,13 @@ public class Bids implements Serializable {
     @Id
     private String _id;
 
-    private String firstName;
-
-    private String lastName;
-
-    private String address;
-
-    private String city;
-
-    private String state;
-
-    private String pin;
-
-    private String phone;
-
-    private String email;
-    
     private String productId;
 
     private String bidAmount;
+    
+    private String buyerId;
+    
+    private User buyer;
 
 
 }
