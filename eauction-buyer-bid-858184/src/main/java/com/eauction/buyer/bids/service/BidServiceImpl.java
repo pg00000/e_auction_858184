@@ -39,7 +39,7 @@ public class BidServiceImpl implements BidService {
     }
 
 	@Override
-    public String placeBid(BidRequest bidRequest, String buyerEmailId) {
+    public Bids placeBid(BidRequest bidRequest, String buyerEmailId) {
 		log.info("ProductServiceImpl >> placeBid >> bids : {}", bidRequest);
 		Products prod = productRepository.findByProductId(bidRequest.getProductId());
 
@@ -58,13 +58,18 @@ public class BidServiceImpl implements BidService {
 		}
 		User user = this.buildUserObject(bidRequest);
 		Bids bid = this.buildBidObject(bidRequest, user, buyerEmailId);
-		bidsRepository.save(bid);
-		return "Bid was created succesfully..";
+		return bidsRepository.save(bid);
 	}
 	
     @Override
 	public void updateBid(String productId, String buyerEmailId, String newBidAmount) {
 		log.info("ProductServiceImpl >> updateBid >> productId : {}", productId);
+		Products prod = productRepository.findByProductId(productId);
+		
+		if (prod.getBidEndDate().isBefore(LocalDate.now())) {
+			throw new InvalidRequestException("Unable to update Bid after Bid End Date");
+		}
+		
 		Bids bidDetail = getBidDetails(productId, buyerEmailId);
 		if (null != bidDetail) {
 			bidDetail.setBidAmount(newBidAmount);
