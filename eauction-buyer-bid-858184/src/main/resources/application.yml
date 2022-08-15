@@ -1,0 +1,32 @@
+server:
+    port: 8082
+spring:
+  kafka:
+    bootstrap-servers: localhost:9092
+  application:
+    name: eauction-bids-service
+  data:
+    mongodb:
+      database: eauction
+      port: 27017
+      host: localhost
+  cloud:
+    config:
+      enabled: false   
+eureka:
+  client:
+    enabled: false
+    fetchRegistry: false
+    registerWithEureka: false
+logging:
+  level:
+    root: INFO
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    shutdown:
+      enabled: 'true'
+
