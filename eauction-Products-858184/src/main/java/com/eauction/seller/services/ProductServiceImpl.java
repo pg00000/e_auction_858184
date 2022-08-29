@@ -114,7 +114,7 @@ public class ProductServiceImpl implements ProductService {
 				User usr = bid.getBuyer();
 				UserAndBids userAndBidsObj = UserAndBids.builder()
 						.bidAmount(Double.valueOf(bid.getBidAmount()))
-						.userName(usr.getFirstName() + usr.getLastName())
+						.userName(usr.getFirstName()+ " " + usr.getLastName())
 						.userEmail(usr.getEmail())
 						.phone(usr.getPhone())
 						.build();
