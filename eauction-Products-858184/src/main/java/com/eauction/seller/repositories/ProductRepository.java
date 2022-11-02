@@ -1,10 +1,10 @@
 package com.eauction.seller.repositories;
 
-import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.data.repository.CrudRepository;
 
 import com.eauction.seller.model.Products;
 
-public interface ProductRepository extends MongoRepository<Products, String>{
+public interface ProductRepository extends CrudRepository<Products, String>{
 
 	Integer deleteByProductId(String productId);
 

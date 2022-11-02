@@ -6,10 +6,10 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.io.Serializable;
+
+import javax.persistence.*;
 
 @Data
 @Builder
@@ -17,13 +17,16 @@ import java.io.Serializable;
 @NoArgsConstructor
 @JsonInclude(value = JsonInclude.Include.NON_NULL)
 @Slf4j
-@Document(collection = "bids")
+//@Document(collection = "bids")
+@Entity
+@Table(name = "bids")
 public class Bids implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @Id
-    private String _id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
 
     private String productId;
 

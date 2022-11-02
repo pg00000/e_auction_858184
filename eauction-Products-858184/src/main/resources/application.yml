@@ -1,12 +1,12 @@
 server:
-    port: 8083
+    port: 5000
 spring:
   application:
     name: eauction-products
-  data:
-    mongodb:
-      database: eauction
-      uri: mongodb://localhost:27017
+  datasource:
+    url: jdbc:postgresql://awseb-e-8pjhujz4gi-stack-awsebrdsdatabase-lugavxeivqrx.cte6oixnspqq.us-east-2.rds.amazonaws.com:5432/postgres
+    username: pg00000
+    password: pgangadharan
   cloud:
     config:
       enabled: false   

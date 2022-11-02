@@ -3,8 +3,10 @@ package com.eauction.seller.model;
 import java.io.Serializable;
 import java.time.LocalDate;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -21,7 +23,9 @@ import lombok.extern.slf4j.Slf4j;
 @NoArgsConstructor
 @JsonInclude(value = JsonInclude.Include.NON_NULL)
 @Slf4j
-@Document(collection = "products")
+//@Document(collection = "products")
+@Entity
+@Table(name = "products")
 public class Products implements Serializable{
 
 	/**
@@ -29,9 +33,11 @@ public class Products implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 
-	@Id
-	@JsonIgnore
-	private String _id;
+    @Id
+    @JsonIgnore
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+	
 
 	private String productId;
 	
